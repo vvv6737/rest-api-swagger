@@ -1,14 +1,15 @@
 package com.api.swagger.Controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 
-
 @RestController
 @RequestMapping("/ex")
+@CrossOrigin(origins = "http://localhost:8080/")
 public class ExController {
 
     @GetMapping(value = "/ex", name = "예시")
@@ -19,7 +20,6 @@ public class ExController {
         resMap.put("의히2","으으");
         resMap.put("의히3","으으");
         resMap.put("의히4","으으");
-        System.out.println(resMap);
         return resMap;
     }
 
