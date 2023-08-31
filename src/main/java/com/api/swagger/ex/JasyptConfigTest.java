@@ -3,7 +3,6 @@ package com.api.swagger.ex;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 
-import java.io.FileReader;
 import java.io.IOException;
 
 public class JasyptConfigTest {

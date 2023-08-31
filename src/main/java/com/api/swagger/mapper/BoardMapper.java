@@ -10,4 +10,7 @@ public interface BoardMapper {
 
     List<Map<String, Object>> boardList();
 
+    Map<String, Object> boardDetail(int seq);
+
+    int boardInsert(Map<String, Object> param);
 }

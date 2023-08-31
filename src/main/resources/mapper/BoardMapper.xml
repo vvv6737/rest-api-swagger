@@ -23,4 +23,47 @@
         ORDER BY FIRST_UPDATE DESC
     </select>
 
+    <select id="boardDetail" parameterType="Integer" resultType="map">
+        select
+            B.BOARD_SEQ
+             ,B.USER_SEQ
+             ,U.USER_NAME
+             ,B.TITLE
+             ,B.CONTENT
+             ,IFNULL((CASE
+                          WHEN INSTR(DATE_FORMAT(B.LAST_UPDATE, '%Y-%m-%d %p %h:%i'), 'PM') > 0
+                              THEN REPLACE(DATE_FORMAT(B.LAST_UPDATE, '%Y-%m-%d %p %h:%i'), 'PM', '오후')
+                          ELSE REPLACE(DATE_FORMAT(B.LAST_UPDATE, '%Y-%m-%d %p %h:%i'), 'AM', '오전')
+            END),
+                     (CASE
+                          WHEN INSTR(DATE_FORMAT(B.FIRST_UPDATE, '%Y-%m-%d %p %h:%i'), 'PM') > 0
+                              THEN REPLACE(DATE_FORMAT(B.FIRST_UPDATE, '%Y-%m-%d %p %h:%i'), 'PM', '오후')
+                          ELSE REPLACE(DATE_FORMAT(B.FIRST_UPDATE, '%Y-%m-%d %p %h:%i'), 'AM', '오전')
+                         END)) as UPLOAD_DATE
+             ,B.IP
+             ,B.FILE_NAME
+             ,B.FILE_PATH
+        from
+            BOARD B
+                left join USER U
+                          on U.USER_SEQ = B.USER_SEQ
+        where BOARD_SEQ = #{seq}
+    </select>
+
+    <insert id="boardInsert" parameterType="Map" keyProperty="seq">
+        INSERT INTO BOARD (
+            `USER_SEQ`
+            ,`TITLE`
+            ,`CONTENT`
+            ,`FIRST_UPDATE`
+            ,`IP`
+        ) VALUES (
+            #{userSeq}
+            ,#{title}
+            ,#{content}
+            ,now()
+            ,#{ip}
+        )
+    </insert>
+
 </mapper>
