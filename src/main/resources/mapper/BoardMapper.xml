@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.api.swagger.mapper.BoardMapper">
+
+    <select id="boardList" resultType="map">
+        SELECT
+            B.BOARD_SEQ AS boardSeq
+             ,B.TITLE AS title
+             ,IFNULL((CASE
+                          WHEN INSTR(DATE_FORMAT(B.LAST_UPDATE, '%Y-%m-%d %p %h:%i'), 'PM') > 0
+                              THEN REPLACE(DATE_FORMAT(B.LAST_UPDATE, '%Y-%m-%d %p %h:%i'), 'PM', '오후')
+                          ELSE REPLACE(DATE_FORMAT(B.LAST_UPDATE, '%Y-%m-%d %p %h:%i'), 'AM', '오전')
+            END),
+                     (CASE
+                          WHEN INSTR(DATE_FORMAT(B.FIRST_UPDATE, '%Y-%m-%d %p %h:%i'), 'PM') > 0
+                              THEN REPLACE(DATE_FORMAT(B.FIRST_UPDATE, '%Y-%m-%d %p %h:%i'), 'PM', '오후')
+                          ELSE REPLACE(DATE_FORMAT(B.FIRST_UPDATE, '%Y-%m-%d %p %h:%i'), 'AM', '오전')
+                         END)) as uploadDate
+             ,U.USER_ID AS userId
+        FROM BOARD B
+                 LEFT JOIN USER U
+                           ON B.USER_SEQ = U.USER_SEQ
+        ORDER BY FIRST_UPDATE DESC
+    </select>
+
+</mapper>
