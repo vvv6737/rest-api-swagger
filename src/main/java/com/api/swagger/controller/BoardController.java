@@ -1,6 +1,7 @@
 package com.api.swagger.controller;
 
 import com.api.swagger.service.BoardService;
+import com.api.swagger.vo.BoardVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +28,10 @@ public class BoardController {
         return boardService.boardDetail(seq);
     }
 
-    @PostMapping(value = "/insert", name = "게시판 등록", produces = "application/json; charset=utf8")
-    public int boardInsert(@RequestParam Map<String, Object> param) {
-        log.info("param : ", param);
-        System.out.println("param : " + param);
+    @PostMapping(value = "/insert", name = "게시판 등록")
+    public int boardInsert(@RequestBody BoardVO boardVO) {
+        log.info("boardVO : ", boardVO);
+        System.out.println("boardVO : " + boardVO);
 //        int res = boardService.boardInsert(param);
         return 7;
     }
