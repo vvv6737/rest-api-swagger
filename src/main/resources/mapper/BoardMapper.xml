@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.api.swagger.mapper.BoardMapper">
 
-    <select id="boardList" resultType="map">
+    <select id="boardList" resultType="map" parameterType="com.api.swagger.vo.Pagination">
         SELECT
             B.BOARD_SEQ AS boardSeq
              ,B.TITLE AS title
@@ -21,9 +21,19 @@
                  LEFT JOIN USER U
                            ON B.USER_SEQ = U.USER_SEQ
         ORDER BY FIRST_UPDATE DESC
+        LIMIT #{page}, #{pageSize}
     </select>
 
-    <select id="boardDetail" parameterType="Integer" resultType="map">
+    <select id="boardTotalCount" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM BOARD B
+        LEFT JOIN USER U
+        ON B.USER_SEQ = U.USER_SEQ
+        ORDER BY FIRST_UPDATE DESC
+    </select>
+
+    <select id="boardDetail" parameterType="com.api.swagger.vo.BoardVO" resultType="map">
         select
             B.BOARD_SEQ
              ,B.USER_SEQ
@@ -50,7 +60,7 @@
         where BOARD_SEQ = #{seq}
     </select>
 
-    <insert id="boardInsert" parameterType="Map" keyProperty="seq">
+    <insert id="boardInsert" parameterType="com.api.swagger.vo.BoardVO" keyProperty="seq">
         INSERT INTO BOARD (
             `USER_SEQ`
             ,`TITLE`
@@ -60,10 +70,27 @@
         ) VALUES (
             #{userSeq}
             ,#{title}
-            ,#{content}
+            ,#{contents}
             ,now()
             ,#{ip}
         )
     </insert>
+
+    <!--게시글 수정-->
+    <update id="boardUpdate" parameterType="com.api.swagger.vo.BoardVO">
+        UPDATE BOARD SET
+            USER_SEQ = #{userSeq}
+            ,TITLE = #{title}
+            ,CONTENT = #{contents}
+            ,LAST_UPDATE = now()
+            ,IP = #{ip}
+        WHERE BOARD_SEQ = #{boardSeq}
+    </update>
+
+    <!--게시글 삭제-->
+    <delete id="boardDelete" parameterType="Integer">
+        DELETE FROM BOARD
+        WHERE BOARD_SEQ = #{seq}
+    </delete>
 
 </mapper>
