@@ -18,10 +18,22 @@
                          END)) as uploadDate
              ,U.USER_ID AS userId
         FROM BOARD B
-                 LEFT JOIN USER U
-                           ON B.USER_SEQ = U.USER_SEQ
+        LEFT JOIN USER U
+        ON B.USER_SEQ = U.USER_SEQ
+        <if test='sk != 0'>
+            <if test='sk == 1'>
+                WHERE U.USER_ID LIKE '%'||#{sv}||'%'
+
+            </if>
+            <if test='sk == 2'>
+                WHERE B.TITLE LIKE '%'||#{sv}||'%'
+            </if>
+            <if test='sk == 3'>
+                WHERE B.CONTENT LIKE '%'||#{sv}||'%'
+            </if>
+        </if>
         ORDER BY FIRST_UPDATE DESC
-        LIMIT #{page}, #{pageSize}
+        LIMIT #{sqlPageNum}, #{pageSize}
     </select>
 
     <select id="boardTotalCount" resultType="Integer">

@@ -6,7 +6,6 @@ import com.api.swagger.vo.BoardVO;
 import com.api.swagger.vo.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -23,7 +22,7 @@ public class BoardService {
         Map<String, Object> result = new HashMap<>();
         int totalCount = boardMapper.boardTotalCount();
 
-        Pagination paging = new Pagination(totalCount, pagination.getPage(), pagination.getPageSize(), 10);
+        Pagination paging = new Pagination(totalCount, pagination.getPage(), pagination.getPageSize(), pagination.getPageSize());
         List<Map<String, Object>> resList = boardMapper.boardList(paging);
 
         result.put("totalCount", totalCount);

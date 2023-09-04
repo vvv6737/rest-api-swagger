@@ -44,8 +44,20 @@ public class Pagination {
     // 인덱스
     int startIndex;
 
+    //쿼리에 보낼 페이지번호
+    int sqlPageNum;
+
+    //검색 selectBox search_key
+    int sk;
+
+    //검색어 search_value
+    String sv;
+
     public Pagination(Integer totalListCnt, Integer page, Integer pageSize, Integer blockSize) {
-        this.pageSize = pageSize;
+
+        this.pageSize = pageSize == 0 ? 10 : pageSize;
+
+        this.sqlPageNum = (page - 1) * this.pageSize;
 
         //현재 페이지
         this.page = page;
