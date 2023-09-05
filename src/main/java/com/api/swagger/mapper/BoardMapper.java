@@ -12,7 +12,7 @@ public interface BoardMapper {
 
     List<Map<String, Object>> boardList(Pagination pagination);
 
-    int boardTotalCount();
+    int boardTotalCount(Pagination pagination);
 
     Map<String, Object> boardDetail(int seq);
 

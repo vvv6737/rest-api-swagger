@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.api.swagger.mapper.BoardMapper">
 
-    <select id="boardList" resultType="map" parameterType="com.api.swagger.vo.Pagination">
+    <select id="boardList" resultType="Map" parameterType="com.api.swagger.vo.Pagination">
         SELECT
             B.BOARD_SEQ AS boardSeq
              ,B.TITLE AS title
@@ -20,28 +20,38 @@
         FROM BOARD B
         LEFT JOIN USER U
         ON B.USER_SEQ = U.USER_SEQ
-        <if test='sk != 0'>
-            <if test='sk == 1'>
-                WHERE U.USER_ID LIKE '%'||#{sv}||'%'
-
+        <if test='!"0".equals(sk)'>
+            <if test='"1".equals(sk)'>
+                WHERE U.USER_ID LIKE CONCAT('%',#{sv},'%')
             </if>
-            <if test='sk == 2'>
-                WHERE B.TITLE LIKE '%'||#{sv}||'%'
+            <if test='"2".equals(sk)'>
+                WHERE B.TITLE LIKE CONCAT('%',#{sv},'%')
             </if>
-            <if test='sk == 3'>
-                WHERE B.CONTENT LIKE '%'||#{sv}||'%'
+            <if test='"3".equals(sk)'>
+                WHERE B.CONTENT LIKE CONCAT('%',#{sv},'%')
             </if>
         </if>
         ORDER BY FIRST_UPDATE DESC
         LIMIT #{sqlPageNum}, #{pageSize}
     </select>
 
-    <select id="boardTotalCount" resultType="Integer">
+    <select id="boardTotalCount" resultType="Integer" parameterType="com.api.swagger.vo.Pagination">
         SELECT
             COUNT(*)
         FROM BOARD B
         LEFT JOIN USER U
         ON B.USER_SEQ = U.USER_SEQ
+        <if test='!"0".equals(sk)'>
+            <if test='"1".equals(sk)'>
+                WHERE U.USER_ID LIKE CONCAT('%',#{sv},'%')
+            </if>
+            <if test='"2".equals(sk)'>
+                WHERE B.TITLE LIKE CONCAT('%',#{sv},'%')
+            </if>
+            <if test='"3".equals(sk)'>
+                WHERE B.CONTENT LIKE CONCAT('%',#{sv},'%')
+            </if>
+        </if>
         ORDER BY FIRST_UPDATE DESC
     </select>
 

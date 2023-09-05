@@ -48,12 +48,12 @@ public class Pagination {
     int sqlPageNum;
 
     //검색 selectBox search_key
-    int sk;
+    String sk;
 
     //검색어 search_value
     String sv;
 
-    public Pagination(Integer totalListCnt, Integer page, Integer pageSize, Integer blockSize) {
+    public Pagination(Integer totalListCnt, Integer page, Integer pageSize, Integer blockSize, String sk, String sv) {
 
         this.pageSize = pageSize == 0 ? 10 : pageSize;
 
@@ -100,6 +100,9 @@ public class Pagination {
         //if(this.page < 1) this.page = 1
 
         startIndex = (this.page - 1) * this.pageSize;
+
+        this.sk = sk;
+        this.sv = sv;
     }
 
 }

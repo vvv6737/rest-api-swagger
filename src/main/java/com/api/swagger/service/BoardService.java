@@ -20,9 +20,9 @@ public class BoardService {
 
     public Map<String, Object> boardList(Pagination pagination) {
         Map<String, Object> result = new HashMap<>();
-        int totalCount = boardMapper.boardTotalCount();
+        int totalCount = boardMapper.boardTotalCount(pagination);
 
-        Pagination paging = new Pagination(totalCount, pagination.getPage(), pagination.getPageSize(), pagination.getPageSize());
+        Pagination paging = new Pagination(totalCount, pagination.getPage(), pagination.getPageSize(), pagination.getPageSize(), pagination.getSk(), pagination.getSv());
         List<Map<String, Object>> resList = boardMapper.boardList(paging);
 
         result.put("totalCount", totalCount);
