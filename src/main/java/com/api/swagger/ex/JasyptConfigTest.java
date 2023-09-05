@@ -3,6 +3,7 @@ package com.api.swagger.ex;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 
+import java.io.FileReader;
 import java.io.IOException;
 
 public class JasyptConfigTest {
@@ -10,22 +11,21 @@ public class JasyptConfigTest {
 //    @Value("${jasypt.encryptor.key}")
 //    private String KEY;
 
-//    private static String key() throws IOException {
-//        String path = System.getProperty("user.dir");
-//        String key2 = "";
-//        FileReader reader = new FileReader(path + "/../../../Downloads/usefulWebJasyptKey.txt");
-//        int ch;
-//        while ((ch = reader.read()) != -1) {
-//            key2 = key2 + (char) ch;
-//        }
-//        return key2;
-//    }
+    private static String key() throws IOException {
+        String path = System.getProperty("user.dir");
+        String key2 = "";
+        FileReader reader = new FileReader(path + "/../../../Downloads/usefulWebJasyptKey.txt");
+        int ch;
+        while ((ch = reader.read()) != -1) {
+            key2 = key2 + (char) ch;
+        }
+        return key2;
+    }
 
     public static void main(String[] args) throws IOException {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword("23432492384823974289");
-//        config.setPassword(key());
+        config.setPassword(key());
         config.setPoolSize("1");
         config.setAlgorithm("PBEWithMD5AndDES");
         config.setStringOutputType("base64");
