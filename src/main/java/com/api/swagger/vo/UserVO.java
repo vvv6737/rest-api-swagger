@@ -16,14 +16,18 @@ import javax.persistence.*;
 public class UserVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userSeq;
-    private String userId;
-    private String userName;
-    private String userPassword;
-    private String userPhoneNum;
-    private String zipCode;
-    private String address;
-    private String detailAddress;
-    private String userEmail;
-    private String userRegDate;
+    private int USER_SEQ;
+    private String USER_ID;
+    private String USER_PASSWORD;
+    private String USER_NAME;
+//    private int userSeq;
+//    private String userId;
+//    private String userName;
+//    private String userPw;
+//    private String userPhoneNum;
+//    private String zipCode;
+//    private String address;
+//    private String detailAddress;
+//    private String userEmail;
+//    private String userRegDate;
 }
