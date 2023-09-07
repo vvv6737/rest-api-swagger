@@ -18,6 +18,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
+//
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+//    }
+
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests() // 토큰을 활용하는 경우 모든 요청에 대해 접근이 가능하도록 함
                 .anyRequest().permitAll()
@@ -26,6 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and() // form 기반의 로그인에 대해 비활성화 한다.
                 .formLogin()
                 .disable();
+//                .addFilterBefore(tokenRequestFilter, UsernamePasswordAuthenticationFilter.class)
+
         http.cors();
     }
 }

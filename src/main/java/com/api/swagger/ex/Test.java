@@ -1,7 +1,11 @@
 package com.api.swagger.ex;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 public class Test {
     public static void main(String[] args) {
-        System.out.println("test");
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encPassword = passwordEncoder.encode("sfjasdjlfhasjlfhasdjkfsdajkfajhsfhaskdjfhasldjfhaskjfhasklj");
     }
 }

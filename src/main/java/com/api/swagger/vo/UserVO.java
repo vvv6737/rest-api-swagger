@@ -5,12 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name="USER")
+@Entity
 public class UserVO {
-    private int seq;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int userSeq;
     private String userId;
     private String userName;
     private String userPassword;
