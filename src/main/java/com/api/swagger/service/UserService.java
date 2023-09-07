@@ -27,11 +27,11 @@ public class UserService implements UserDetailsService {
         UserVO userEntity = userRepository.findByUserId(username)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
-        if (userEntity.getUSER_ID().equals(username)) {
+        if (userEntity.getUserId().equals(username)) {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
 
-        return new User(userEntity.getUSER_ID(), userEntity.getUSER_PASSWORD(), authorities);
+        return new User(userEntity.getUserId(), userEntity.getUSER_PASSWORD(), authorities);
     }
 
 }

@@ -14,20 +14,25 @@ import javax.persistence.*;
 @Table(name="USER")
 @Entity
 public class UserVO {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int USER_SEQ;
-    private String USER_ID;
+
+    @Column(name="USER_ID")
+    private String userId;
+
     private String USER_PASSWORD;
+
     private String USER_NAME;
-//    private int userSeq;
-//    private String userId;
-//    private String userName;
-//    private String userPw;
-//    private String userPhoneNum;
-//    private String zipCode;
-//    private String address;
-//    private String detailAddress;
-//    private String userEmail;
-//    private String userRegDate;
+
+//    private String USER_PHONE1;
+//    private String USER_PHONE2;
+//    private String USER_PHONE3;
+//    private String USER_ZIPCODE;
+//    private String USER_ADD;
+//    private String USER_DETAIL_ADD;
+//    private String USER_EMAIL;
+//    private String USER_REG_DATE;
+//    private String USER_PHONENUM;
 }
