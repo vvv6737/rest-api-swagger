@@ -65,7 +65,7 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        System.out.println(mvcResult.getResponse().getContentAsString());
+        System.out.println("getContentAsString : " + mvcResult.getResponse().getContentAsString());
     }
 
 }
