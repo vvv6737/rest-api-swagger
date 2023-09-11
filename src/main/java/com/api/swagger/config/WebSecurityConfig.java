@@ -24,6 +24,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final TokenRequestFilter tokenRequestFilter;
 
+    private static final String[] PERMIT_URL_ARRAY = {
+            /* swagger v2 */
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            /* swagger v3 */
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+    };
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -40,6 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests() // 토큰을 활용하는 경우 모든 요청에 대해 접근이 가능하도록 함
+//                .antMatchers(PERMIT_URL_ARRAY)
+//                .authenticated()
                 .anyRequest().permitAll()
                 .and() // 토큰을 활용하면 세션이 필요 없으므로 STATELESS로 설정하여 Session을 사용하지 않는다.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -50,4 +66,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.cors();
     }
+
 }
