@@ -1,6 +1,7 @@
 package com.api.swagger.config;
 
 import com.api.swagger.service.UserService;
+import com.api.swagger.util.TokenRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -19,6 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
+
+    private final TokenRequestFilter tokenRequestFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -41,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and() // form 기반의 로그인에 대해 비활성화 한다.
                 .formLogin()
-                .disable();
-//                .addFilterBefore(tokenRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .disable()
+                .addFilterBefore(tokenRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.cors();
     }
