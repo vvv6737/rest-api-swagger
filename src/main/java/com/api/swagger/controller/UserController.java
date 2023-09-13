@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.midi.SysexMessage;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +45,7 @@ public class UserController {
         result.put("user_id", loginUser.getUsername());
         result.put("user_token", accessToken);
         result.put("user_role", loginUser.getAuthorities().stream().findFirst().get().getAuthority());
+        System.out.println("result : " + result);
 
         return ResponseEntity.ok(result);
     }

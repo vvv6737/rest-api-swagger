@@ -26,6 +26,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("웹 서비스 API Swagger")
                 .description("Vue, React 전용")
+                .termsOfServiceUrl("https://www.google.com/?hl=ko")
                 .version("1.0")
                 .build();
     }
