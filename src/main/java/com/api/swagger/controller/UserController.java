@@ -2,6 +2,7 @@ package com.api.swagger.controller;
 
 import com.api.swagger.service.UserService;
 import com.api.swagger.util.JWTUtil;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sound.midi.SysexMessage;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +21,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:8080/")
 @RestController
 @RequestMapping("/user")
+@Api(tags = {"02. User"}, description = "유저 관련 api")
 public class UserController {
 
     private final JWTUtil jwtUtil;
@@ -45,7 +46,6 @@ public class UserController {
         result.put("user_id", loginUser.getUsername());
         result.put("user_token", accessToken);
         result.put("user_role", loginUser.getAuthorities().stream().findFirst().get().getAuthority());
-        System.out.println("result : " + result);
 
         return ResponseEntity.ok(result);
     }
