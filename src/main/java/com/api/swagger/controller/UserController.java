@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:8080/")
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 @Api(tags = {"02. User"}, description = "유저 관련 api")

@@ -15,7 +15,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/board")
-@CrossOrigin(origins = "http://localhost:8080/")
+@CrossOrigin
 @Api(tags = {"01. Board Info"}, description = "게시판 서비스")
 public class BoardController {
 
