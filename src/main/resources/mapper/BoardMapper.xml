@@ -20,16 +20,18 @@
         FROM BOARD B
         LEFT JOIN USER U
         ON B.USER_SEQ = U.USER_SEQ
-        <if test='!"0".equals(sk)'>
-            <if test='"1".equals(sk)'>
-                WHERE U.USER_ID LIKE CONCAT('%',#{sv},'%')
-            </if>
-            <if test='"2".equals(sk)'>
-                WHERE B.TITLE LIKE CONCAT('%',#{sv},'%')
-            </if>
-            <if test='"3".equals(sk)'>
-                WHERE B.CONTENT LIKE CONCAT('%',#{sv},'%')
-            </if>
+        <if test='"0".equals(sk)'>
+            WHERE B.TITLE LIKE CONCAT('%',#{sv},'%')
+            OR B.CONTENT LIKE CONCAT('%',#{sv},'%')
+        </if>
+        <if test='"1".equals(sk)'>
+            WHERE U.USER_ID LIKE CONCAT('%',#{sv},'%')
+        </if>
+        <if test='"2".equals(sk)'>
+            WHERE B.TITLE LIKE CONCAT('%',#{sv},'%')
+        </if>
+        <if test='"3".equals(sk)'>
+            WHERE B.CONTENT LIKE CONCAT('%',#{sv},'%')
         </if>
         ORDER BY FIRST_UPDATE DESC
         LIMIT #{sqlPageNum}, #{pageSize}
